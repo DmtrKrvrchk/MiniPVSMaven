@@ -1,6 +1,6 @@
-package view;
+package mvc.view;
 
-import model.PatientModel;
+import mvc.model.PatientModel;
 
 import javax.swing.*;
 

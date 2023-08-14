@@ -1,4 +1,4 @@
-package model;
+package mvc.model;
 
 import jakarta.persistence.*;
 
@@ -18,7 +18,7 @@ public class PatientModel {
     private String gender;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicalRecordModel> medicalRecords = new ArrayList<>();
+    private List<MedicalRecordModel> medicalRecords;
 
 
     public PatientModel(String firstName, String lastName, LocalDate dateOfBirth, String gender) {

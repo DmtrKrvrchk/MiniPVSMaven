@@ -1,9 +1,9 @@
-package view;
+package mvc.view;
 
-import model.MedicalRecordModel;
-import model.MedicalRecordTableModel;
-import model.MedicalRecordType;
-import model.PatientModel;
+import mvc.model.MedicalRecordModel;
+import mvc.model.MedicalRecordTableModel;
+import mvc.model.MedicalRecordType;
+import mvc.model.PatientModel;
 
 import javax.swing.*;
 import javax.swing.border.Border;

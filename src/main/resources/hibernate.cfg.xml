@@ -30,7 +30,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Mention annotated entity classes -->
-        <mapping class="model.PatientModel" />
-        <mapping class="model.MedicalRecordModel" />
+        <mapping class="mvc.model.PatientModel" />
+        <mapping class="mvc.model.MedicalRecordModel" />
     </session-factory>
 </hibernate-configuration>

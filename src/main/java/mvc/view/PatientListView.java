@@ -1,8 +1,8 @@
-package view;
+package mvc.view;
 
-import controller.PatientListController;
-import model.PatientModel;
-import model.PatientTableModel;
+import mvc.controller.PatientListController;
+import mvc.model.PatientModel;
+import mvc.model.PatientTableModel;
 
 import javax.swing.*;
 import javax.swing.border.Border;

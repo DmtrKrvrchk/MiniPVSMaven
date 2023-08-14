@@ -1,4 +1,4 @@
-package model;
+package mvc.model;
 
 import javax.swing.table.AbstractTableModel;
 import java.time.format.DateTimeFormatter;

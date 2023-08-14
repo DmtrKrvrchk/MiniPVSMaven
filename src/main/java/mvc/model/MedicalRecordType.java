@@ -1,4 +1,4 @@
-package model;
+package mvc.model;
 
 public enum MedicalRecordType {
     DIAGNOSE("Diagnose"),
