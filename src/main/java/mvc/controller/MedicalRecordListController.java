@@ -62,9 +62,7 @@ public class MedicalRecordListController {
     public boolean deleteMedicalRecord(MedicalRecordModel medicalRecordToDelete) {
         int choice = JOptionPane.showConfirmDialog(null, "Sind Sie sicher, dass Sie diese Patientenakte löschen möchten?", "Bestätigung des Löschvorgangs", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
-            handleWithEntityManager(em -> {
-                em.remove(em.contains(medicalRecordToDelete) ? medicalRecordToDelete : em.merge(medicalRecordToDelete));
-            });
+            handleWithEntityManager(em -> em.remove(em.contains(medicalRecordToDelete) ? medicalRecordToDelete : em.merge(medicalRecordToDelete)));
             JOptionPane.showMessageDialog(null, "Patientenakte erfolgreich gelöscht!", "Gelöscht!", JOptionPane.INFORMATION_MESSAGE);
             return true;
         } else {

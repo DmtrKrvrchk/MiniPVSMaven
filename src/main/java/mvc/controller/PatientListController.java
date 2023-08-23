@@ -22,7 +22,7 @@ public class PatientListController {
     private void handleTransaction(EntityManager em, Runnable action) {
         EntityTransaction tx = em.getTransaction();
 
-        try {
+        try (em) {
             tx.begin();
             action.run();
             tx.commit();
@@ -31,8 +31,6 @@ public class PatientListController {
                 tx.rollback();
             }
             e.printStackTrace();
-        } finally {
-            em.close();
         }
     }
 

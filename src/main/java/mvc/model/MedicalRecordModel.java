@@ -17,7 +17,7 @@ public class MedicalRecordModel {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
-    private PatientModel patient;
+    private final PatientModel patient;
 
 
     public MedicalRecordModel(LocalDate date, MedicalRecordType type, String description, PatientModel patient) {

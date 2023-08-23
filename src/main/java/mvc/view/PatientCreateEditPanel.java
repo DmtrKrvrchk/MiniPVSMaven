@@ -146,6 +146,7 @@ public class PatientCreateEditPanel extends JPanel {
 				PatientTableModel.getInstance().addPatient(newPatient);
 				parent.dispose();
 			} catch (Exception e) {
+				assert tx != null;
 				if (tx.isActive()) {
 					tx.rollback();
 				}
