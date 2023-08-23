@@ -3,7 +3,6 @@ package mvc.view;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import mvc.model.PatientModel;
 import mvc.model.PatientTableModel;
 
@@ -137,9 +136,10 @@ public class PatientCreateEditPanel extends JPanel {
 
 			PatientModel newPatient = new PatientModel(firstName, lastName, birthDate, gender);
 			EntityManager em = emf.createEntityManager();
-			EntityTransaction tx = em.getTransaction();
 
-			try {
+			EntityTransaction tx = null;
+			try (em) {
+				tx = em.getTransaction();
 				tx.begin();
 				em.persist(newPatient);
 				tx.commit();
@@ -150,8 +150,6 @@ public class PatientCreateEditPanel extends JPanel {
 					tx.rollback();
 				}
 				e.printStackTrace();
-			} finally {
-				em.close();
 			}
 		}
 	}
