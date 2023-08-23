@@ -15,11 +15,16 @@ public class MedicalRecordModel {
     private MedicalRecordType type;
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private final PatientModel patient;
+
 
     public MedicalRecordModel(LocalDate date, MedicalRecordType type, String description, PatientModel patient) {
         this.date = date;
         this.type = type;
         this.description = description;
+        this.patient = patient;
     }
 
 
