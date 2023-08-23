@@ -16,6 +16,7 @@ public class MedicalRecordModel {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "patient_id")
     private PatientModel patient;
 
 
