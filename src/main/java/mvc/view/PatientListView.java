@@ -13,7 +13,7 @@ import java.awt.*;
 public class PatientListView extends JPanel {
     private final PatientListController patientListController;
     private final MainMenuView mainMenuView;
-    private JTable patientTable;
+    private final JTable patientTable;
     private JButton newPatientButton;
     private JButton editPatientButton;
     private JButton medicalRecordButton;
