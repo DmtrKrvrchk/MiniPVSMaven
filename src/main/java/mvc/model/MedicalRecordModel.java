@@ -1,8 +1,10 @@
 package mvc.model;
 
+
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+
 
 @Entity
 public class MedicalRecordModel {
@@ -15,11 +17,12 @@ public class MedicalRecordModel {
     private MedicalRecordType type;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
-    private final PatientModel patient;
+    private PatientModel patient;
 
 
+    public MedicalRecordModel() {}
     public MedicalRecordModel(LocalDate date, MedicalRecordType type, String description, PatientModel patient) {
         this.date = date;
         this.type = type;

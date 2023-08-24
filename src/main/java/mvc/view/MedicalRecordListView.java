@@ -1,5 +1,6 @@
 package mvc.view;
 
+
 import mvc.controller.MedicalRecordListController;
 import mvc.model.MedicalRecordModel;
 import mvc.model.MedicalRecordTableModel;
@@ -30,6 +31,7 @@ public class MedicalRecordListView extends JPanel {
         initComponents();
         initActionsListener();
     }
+
 
     private void initActionsListener() {
         newRecordButton.addActionListener(e -> {

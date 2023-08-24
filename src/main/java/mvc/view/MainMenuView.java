@@ -1,5 +1,6 @@
 package mvc.view;
 
+
 import mvc.model.PatientModel;
 
 import javax.swing.*;
@@ -9,15 +10,13 @@ public class MainMenuView extends JFrame {
     private JTabbedPane tabbedPane;
 
 
-    public MainMenuView() {
-        initComponents();
-    }
+    public MainMenuView() { initComponents(); }
 
 
     public void initComponents() {
         setTitle("MiniPVS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(625, 400);
+        setSize(650, 550);
         setLocationRelativeTo(null);
 
         tabbedPane = new JTabbedPane();

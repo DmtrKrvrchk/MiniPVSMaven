@@ -1,5 +1,6 @@
 package mvc.view;
 
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
 public class PatientCreateEditPanel extends JPanel {
 	private PatientModel patient;
 	private JTextField firstNameField;
@@ -20,7 +22,6 @@ public class PatientCreateEditPanel extends JPanel {
 	private JTextField birthDateField;
 	private JComboBox<String> genderComboBox;
 	private final JFrame parent;
-
 	private final EntityManagerFactory emf;
 
 
@@ -105,6 +106,7 @@ public class PatientCreateEditPanel extends JPanel {
 
 		saveButton.setBorder(compoundBorder);
 		cancelButton.setBorder(compoundBorder);
+
 		buttonPanel.add(saveButton);
 		buttonPanel.add(cancelButton);
 
@@ -120,6 +122,7 @@ public class PatientCreateEditPanel extends JPanel {
 		add(inputPanel, BorderLayout.CENTER);
 		add(buttonPanel,BorderLayout.SOUTH);
 	}
+
 
 	private void savePatient() {
 		if (validateFields()) {
@@ -195,49 +198,6 @@ public class PatientCreateEditPanel extends JPanel {
 		}
 	}
 
-	/*private void savePatient() {
-		if (validateFields()) {
-			String firstName = firstNameField.getText();
-			String lastName = lastNameField.getText();
-			LocalDate birthDate;
-			try {
-				birthDate = LocalDate.parse(birthDateField.getText(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-			} catch (DateTimeParseException e) {
-				JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT-MM-JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			String gender = (String) genderComboBox.getSelectedItem();
-
-			PatientModel newPatient = new PatientModel(firstName, lastName, birthDate, gender);
-			PatientTableModel.getInstance().addPatient(newPatient);
-			parent.dispose();
-		}
-	}
-
-	private void editPatient(PatientModel patientToEdit) {
-		if (validateFields()) {
-			String firstName = firstNameField.getText();
-			String lastName = lastNameField.getText();
-			LocalDate birthDate;
-
-			try {
-				birthDate = LocalDate.parse(birthDateField.getText(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-			} catch (DateTimeParseException e) {
-				JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT-MM-JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-
-			String gender = (String) genderComboBox.getSelectedItem();
-
-			patientToEdit.setFirstName(firstName);
-			patientToEdit.setLastName(lastName);
-			patientToEdit.setDateOfBirth(birthDate);
-			patientToEdit.setGender(gender);
-
-			PatientTableModel.getInstance().fireTableDataChanged();
-			parent.dispose();
-		}
-	}*/
 
 	private void initValues() {
 		if (patient != null) {
@@ -282,7 +242,6 @@ public class PatientCreateEditPanel extends JPanel {
 			JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT-MM-JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-
 		return true;
 	}
 }

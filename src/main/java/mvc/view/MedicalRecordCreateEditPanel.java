@@ -1,5 +1,9 @@
 package mvc.view;
 
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import mvc.model.MedicalRecordModel;
 import mvc.model.MedicalRecordTableModel;
 import mvc.model.MedicalRecordType;
@@ -35,6 +39,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
         initComponents();
         initValues();
     }
+
 
     private void initComponents() {
         this.setLayout(new BorderLayout());
@@ -109,6 +114,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
         add(buttonPanel,BorderLayout.SOUTH);
     }
 
+
     public void saveMedicalRecord() {
         if (validateFields()) {
             LocalDate date;
@@ -122,6 +128,14 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             String description = descriptionField.getText();
 
             MedicalRecordModel newMedicalRecord = new MedicalRecordModel(date, type, description, patient);
+
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.persist(newMedicalRecord);
+            em.getTransaction().commit();
+            em.close();
+
             MedicalRecordTableModel.getInstance(patient).addMedicalRecord(newMedicalRecord);
             parent.dispose();
         }
@@ -142,6 +156,13 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             medicalRecordToEdit.setDate(date);
             medicalRecordToEdit.setType(type);
             medicalRecordToEdit.setDescription(description);
+
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.merge(medicalRecordToEdit);
+            em.getTransaction().commit();
+            em.close();
 
             MedicalRecordTableModel.getInstance(patient).fireTableDataChanged();
             parent.dispose();

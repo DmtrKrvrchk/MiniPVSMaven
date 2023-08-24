@@ -1,12 +1,17 @@
 package mvc.model;
 
+
+import jakarta.persistence.EntityManager;
+import util.HibernateUtil;
+
 import javax.swing.table.AbstractTableModel;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PatientTableModel extends AbstractTableModel {
-    private final ArrayList<PatientModel> patients;
+    private List<PatientModel> patients;
     private final String[] columnNames = {"Name", "Vorname", "Geburtsdatum", "Geschlecht"};
     private static PatientTableModel instance;
 
@@ -15,16 +20,43 @@ public class PatientTableModel extends AbstractTableModel {
 
 
     public static PatientTableModel getInstance() {
-        if (instance == null) { instance = new PatientTableModel(); }
+        if (instance == null) {
+            instance = new PatientTableModel();
+            getPatientsFromDatabase();
+        }
         return instance;
     }
 
 
-    public void addPatient(PatientModel patientToAdd) {
-        patients.add(patientToAdd);
-        fireTableRowsInserted(patients.size(), patients.size());
+    private static void getPatientsFromDatabase() {
+        EntityManager em = HibernateUtil.getSessionFactory().createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            List<PatientModel> patients = em.createQuery("SELECT p FROM PatientModel p", PatientModel.class)
+                    .getResultList();
+
+            em.getTransaction().commit();
+            instance.setPatients(patients);
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+    public void setPatients(List<PatientModel> patients) {
+        this.patients = patients;
+        fireTableDataChanged();
     }
 
+    public void addPatient(PatientModel patientToAdd) {
+        patients.add(patientToAdd);
+        fireTableRowsInserted(patients.size() - 1, patients.size() - 1);
+    }
     public PatientModel getPatientAt(int row) {
         return patients.get(row);
     }

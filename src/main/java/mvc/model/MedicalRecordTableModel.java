@@ -1,5 +1,6 @@
 package mvc.model;
 
+
 import javax.swing.table.AbstractTableModel;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -11,7 +12,7 @@ public class MedicalRecordTableModel extends AbstractTableModel {
     private static MedicalRecordTableModel instance;
 
 
-    public MedicalRecordTableModel(PatientModel patient) { this.medicalRecords = patient.getMedicalRecords(); }
+    public MedicalRecordTableModel(PatientModel patient) { this.medicalRecords = patient.getMedicalRecordsFromDatabase(); }
 
 
     public static MedicalRecordTableModel getInstance(PatientModel patient) {

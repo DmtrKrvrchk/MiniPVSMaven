@@ -1,10 +1,14 @@
 package mvc.model;
 
+
 import jakarta.persistence.*;
+import org.hibernate.Hibernate;
+import util.HibernateUtil;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 public class PatientModel {
@@ -21,6 +25,7 @@ public class PatientModel {
     private List<MedicalRecordModel> medicalRecords;
 
 
+    public PatientModel() {}
     public PatientModel(String firstName, String lastName, LocalDate dateOfBirth, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,6 +35,15 @@ public class PatientModel {
     }
 
 
+    public List<MedicalRecordModel> getMedicalRecordsFromDatabase() {
+        EntityManager em = HibernateUtil.getSessionFactory().createEntityManager();
+        if (!Hibernate.isInitialized(medicalRecords)) {
+            medicalRecords = em.createQuery("SELECT m FROM MedicalRecordModel m WHERE m.patient = :patient", MedicalRecordModel.class)
+                    .setParameter("patient", this)
+                    .getResultList();
+        }
+        return medicalRecords;
+    }
     public List<MedicalRecordModel> getMedicalRecords() { return medicalRecords; }
 
     public String getFirstName() { return firstName; }

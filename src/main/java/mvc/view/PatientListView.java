@@ -1,5 +1,6 @@
 package mvc.view;
 
+
 import mvc.controller.PatientListController;
 import mvc.model.PatientModel;
 import mvc.model.PatientTableModel;
@@ -11,8 +12,8 @@ import java.awt.*;
 
 public class PatientListView extends JPanel {
     private final PatientListController patientListController;
-    private final JTable patientTable;
     private final MainMenuView mainMenuView;
+    private JTable patientTable;
     private JButton newPatientButton;
     private JButton editPatientButton;
     private JButton medicalRecordButton;
@@ -73,6 +74,7 @@ public class PatientListView extends JPanel {
             }
         });
     }
+
 
     private void initComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout());
