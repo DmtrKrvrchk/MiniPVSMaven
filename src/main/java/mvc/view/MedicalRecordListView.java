@@ -73,7 +73,7 @@ public class MedicalRecordListView extends JPanel {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String patientName = patient.getLastName() + ", " + patient.getFirstName();
         String patientDetails = " - " + patient.getDateOfBirth().format(formatter) + " (" + Period.between(patient.getDateOfBirth(), LocalDate.now()).getYears() +" J.), " + patient.getGender();
-        String secondaryTitle = "<html><center>Patientenakte von<br>" + patientName + patientDetails + "</center></html>";
+        String secondaryTitle = patientName + patientDetails;
         JLabel secondaryTitleLabel = new JLabel(secondaryTitle);
         secondaryTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         secondaryTitleLabel.setFont(new Font("Arial", Font.BOLD, 14));
