@@ -1,9 +1,7 @@
 package mvc.view;
 
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import mvc.controller.MedicalRecordManager;
 import mvc.model.MedicalRecordModel;
 import mvc.model.MedicalRecordTableModel;
 import mvc.model.MedicalRecordType;
@@ -129,13 +127,9 @@ public class MedicalRecordCreateEditPanel extends JPanel {
 
             MedicalRecordModel newMedicalRecord = new MedicalRecordModel(date, type, description, patient);
 
-            //TODO in neue Klasse MedicalRecordManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
-            EntityManager em = emf.createEntityManager();
-            em.getTransaction().begin();
-            em.persist(newMedicalRecord);
-            em.getTransaction().commit();
-            em.close();
+
+            MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
+            medicalRecordManager.createMedicalRecord(newMedicalRecord);
 
             MedicalRecordTableModel.getInstance(patient).addMedicalRecord(newMedicalRecord);
             parent.dispose();
@@ -158,14 +152,9 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             medicalRecordToEdit.setType(type);
             medicalRecordToEdit.setDescription(description);
 
-            //TODO in neue Klasse MedicalRecordManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
 
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
-            EntityManager em = emf.createEntityManager();
-            em.getTransaction().begin();
-            em.merge(medicalRecordToEdit);
-            em.getTransaction().commit();
-            em.close();
+            MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
+            medicalRecordManager.updateMedicalRecord(medicalRecordToEdit);
 
             MedicalRecordTableModel.getInstance(patient).fireTableDataChanged();
             parent.dispose();

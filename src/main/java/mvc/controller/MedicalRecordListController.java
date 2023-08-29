@@ -5,17 +5,18 @@ import mvc.model.MedicalRecordModel;
 import mvc.model.PatientModel;
 import mvc.view.MedicalRecordCreateEditPanel;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import javax.swing.*;
 
 
 public class MedicalRecordListController {
     private final PatientModel patient;
+    private final MedicalRecordManager medicalRecordManager;
 
 
-    public MedicalRecordListController(PatientModel patient) { this.patient = patient; }
+    public MedicalRecordListController(PatientModel patient) {
+        this.patient = patient;
+        this.medicalRecordManager = new MedicalRecordManager();
+    }
 
 
     public void newMedicalRecord() {
@@ -44,17 +45,7 @@ public class MedicalRecordListController {
                 JOptionPane.YES_NO_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {
-            //TODO in neue Klasse MedicalRecordManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
-
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
-            EntityManager em = emf.createEntityManager();
-
-            try {
-                em.getTransaction().begin();
-                MedicalRecordModel managedMedicalRecord = em.merge(medicalRecordToDelete);
-                em.remove(managedMedicalRecord);
-                em.getTransaction().commit();
-
+            if (medicalRecordManager.deleteMedicalRecord(medicalRecordToDelete)) {
                 JOptionPane.showMessageDialog(
                         null,
                         "Patientenakte erfolgreich gelöscht!",
@@ -62,22 +53,8 @@ public class MedicalRecordListController {
                         JOptionPane.INFORMATION_MESSAGE);
 
                 return true;
-            } catch (Exception e) {
-                if (em.getTransaction() != null && em.getTransaction().isActive()) {
-                    em.getTransaction().rollback();
-                }
-
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Fehler beim Löschen der Patientenakte.",
-                        "Fehler",
-                        JOptionPane.ERROR_MESSAGE);
-
+            } else {
                 return false;
-            } finally {
-                em.close();
-                emf.close();
             }
         } else {
             return false;

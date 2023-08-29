@@ -12,7 +12,7 @@ public class MedicalRecordTableModel extends AbstractTableModel {
     private static MedicalRecordTableModel instance;
 
 
-    public MedicalRecordTableModel(PatientModel patient) { this.medicalRecords = patient.getMedicalRecordsFromDatabase(); }
+    public MedicalRecordTableModel(PatientModel patient) { this.medicalRecords = patient.getMedicalRecords(); }
 
 
     public static MedicalRecordTableModel getInstance(PatientModel patient) {

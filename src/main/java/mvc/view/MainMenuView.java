@@ -16,7 +16,7 @@ public class MainMenuView extends JFrame {
     public void initComponents() {
         setTitle("MiniPVS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(650, 550);
+        setSize(650, 525);
         setLocationRelativeTo(null);
 
         tabbedPane = new JTabbedPane();

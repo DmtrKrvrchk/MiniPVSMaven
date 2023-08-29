@@ -1,8 +1,7 @@
 package mvc.model;
 
 
-import jakarta.persistence.EntityManager;
-import util.HibernateUtil;
+import mvc.controller.PatientManager;
 
 import javax.swing.table.AbstractTableModel;
 import java.time.format.DateTimeFormatter;
@@ -14,41 +13,23 @@ public class PatientTableModel extends AbstractTableModel {
     private List<PatientModel> patients;
     private final String[] columnNames = {"Name", "Vorname", "Geburtsdatum", "Geschlecht"};
     private static PatientTableModel instance;
+    private final PatientManager patientManager = new PatientManager();
 
 
-    public PatientTableModel() { this.patients = new ArrayList<>(); }
+    public PatientTableModel() {
+        this.patients = new ArrayList<>();
+        setPatients(patientManager.getPatientsFromDatabase());
+    }
 
 
     public static PatientTableModel getInstance() {
         if (instance == null) {
             instance = new PatientTableModel();
-            getPatientsFromDatabase();
         }
         return instance;
     }
 
 
-    private static void getPatientsFromDatabase() {
-        //TODO in neue Klasse patientManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
-        EntityManager em = HibernateUtil.getSessionFactory().createEntityManager();
-
-        try {
-            em.getTransaction().begin();
-
-            List<PatientModel> patients = em.createQuery("SELECT p FROM PatientModel p", PatientModel.class)
-                    .getResultList();
-
-            em.getTransaction().commit();
-            instance.setPatients(patients);
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-    }
     public void setPatients(List<PatientModel> patients) {
         this.patients = patients;
         fireTableDataChanged();
@@ -58,6 +39,7 @@ public class PatientTableModel extends AbstractTableModel {
         patients.add(patientToAdd);
         fireTableRowsInserted(patients.size() - 1, patients.size() - 1);
     }
+
     public PatientModel getPatientAt(int row) {
         return patients.get(row);
     }

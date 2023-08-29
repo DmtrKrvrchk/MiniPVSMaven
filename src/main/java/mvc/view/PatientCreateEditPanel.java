@@ -1,9 +1,7 @@
 package mvc.view;
 
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
+import mvc.controller.PatientManager;
 import mvc.model.PatientModel;
 import mvc.model.PatientTableModel;
 
@@ -22,21 +20,24 @@ public class PatientCreateEditPanel extends JPanel {
 	private JTextField birthDateField;
 	private JComboBox<String> genderComboBox;
 	private final JFrame parent;
-	private final EntityManagerFactory emf;
+	private final PatientManager patientManager;
+	//private final EntityManagerFactory emf;
 
 
 	//TODO emf nicht in konstruktor, stattdessen methoden aus neuer Klasse Patientenmanager aufrufen
-	public PatientCreateEditPanel(JFrame parent, EntityManagerFactory emf) {
-		this.emf = emf;
+	public PatientCreateEditPanel(JFrame parent) {
+		//this.emf = emf;
 		this.parent = parent;
+		this.patientManager = new PatientManager();
 		initComponents();
 	}
 
 	//TODO emf nicht in konstruktor, stattdessen methoden aus neuer Klasse Patientenmanager aufrufen
-	public PatientCreateEditPanel(JFrame parent, PatientModel patient, EntityManagerFactory emf) {
-		this.emf = emf;
+	public PatientCreateEditPanel(JFrame parent, PatientModel patient) {
+		//this.emf = emf;
 		this.patient = patient;
 		this.parent = parent;
+		this.patientManager = new PatientManager();
 		initComponents();
 		initValues();
 	}
@@ -140,23 +141,10 @@ public class PatientCreateEditPanel extends JPanel {
 			String gender = (String) genderComboBox.getSelectedItem();
 
 			PatientModel newPatient = new PatientModel(firstName, lastName, birthDate, gender);
-			EntityManager em = emf.createEntityManager();
+			patientManager.createPatient(newPatient);
 
-			EntityTransaction tx = null;
-			try (em) {
-				tx = em.getTransaction();
-				tx.begin();
-				em.persist(newPatient);
-				tx.commit();
-				PatientTableModel.getInstance().addPatient(newPatient);
-				parent.dispose();
-			} catch (Exception e) {
-				assert tx != null;
-				if (tx.isActive()) {
-					tx.rollback();
-				}
-				e.printStackTrace();
-			}
+			PatientTableModel.getInstance().addPatient(newPatient);
+			parent.dispose();
 		}
 	}
 
@@ -180,23 +168,10 @@ public class PatientCreateEditPanel extends JPanel {
 			patientToEdit.setDateOfBirth(birthDate);
 			patientToEdit.setGender(gender);
 
-			EntityManager em = emf.createEntityManager();
-			EntityTransaction tx = em.getTransaction();
+			patientManager.updatePatient(patientToEdit);
 
-			try {
-				tx.begin();
-				em.merge(patientToEdit);
-				tx.commit();
-				PatientTableModel.getInstance().fireTableDataChanged();
-				parent.dispose();
-			} catch (Exception e) {
-				if (tx.isActive()) {
-					tx.rollback();
-				}
-				e.printStackTrace();
-			} finally {
-				em.close();
-			}
+			PatientTableModel.getInstance().fireTableDataChanged();
+			parent.dispose();
 		}
 	}
 

@@ -2,8 +2,7 @@ package mvc.model;
 
 
 import jakarta.persistence.*;
-import org.hibernate.Hibernate;
-import util.HibernateUtil;
+import mvc.controller.MedicalRecordManager;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,17 +34,10 @@ public class PatientModel {
     }
 
 
-    public List<MedicalRecordModel> getMedicalRecordsFromDatabase() {
-        //TODO in neue Klasse MedicalRecordManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
-        EntityManager em = HibernateUtil.getSessionFactory().createEntityManager();
-        if (!Hibernate.isInitialized(medicalRecords)) {
-            medicalRecords = em.createQuery("SELECT m FROM MedicalRecordModel m WHERE m.patient = :patient", MedicalRecordModel.class)
-                    .setParameter("patient", this)
-                    .getResultList();
-        }
-        return medicalRecords;
+    public List<MedicalRecordModel> getMedicalRecords() {
+        MedicalRecordManager recordManager = new MedicalRecordManager();
+        return recordManager.getMedicalRecordsForPatient(this);
     }
-    public List<MedicalRecordModel> getMedicalRecords() { return medicalRecords; }
 
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
