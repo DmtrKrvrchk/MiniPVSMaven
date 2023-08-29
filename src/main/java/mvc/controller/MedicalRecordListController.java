@@ -44,6 +44,8 @@ public class MedicalRecordListController {
                 JOptionPane.YES_NO_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {
+            //TODO in neue Klasse MedicalRecordManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
+
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
             EntityManager em = emf.createEntityManager();
 

@@ -36,6 +36,7 @@ public class PatientModel {
 
 
     public List<MedicalRecordModel> getMedicalRecordsFromDatabase() {
+        //TODO in neue Klasse MedicalRecordManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
         EntityManager em = HibernateUtil.getSessionFactory().createEntityManager();
         if (!Hibernate.isInitialized(medicalRecords)) {
             medicalRecords = em.createQuery("SELECT m FROM MedicalRecordModel m WHERE m.patient = :patient", MedicalRecordModel.class)

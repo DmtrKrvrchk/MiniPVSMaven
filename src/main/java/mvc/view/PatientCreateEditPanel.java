@@ -25,12 +25,14 @@ public class PatientCreateEditPanel extends JPanel {
 	private final EntityManagerFactory emf;
 
 
+	//TODO emf nicht in konstruktor, stattdessen methoden aus neuer Klasse Patientenmanager aufrufen
 	public PatientCreateEditPanel(JFrame parent, EntityManagerFactory emf) {
 		this.emf = emf;
 		this.parent = parent;
 		initComponents();
 	}
 
+	//TODO emf nicht in konstruktor, stattdessen methoden aus neuer Klasse Patientenmanager aufrufen
 	public PatientCreateEditPanel(JFrame parent, PatientModel patient, EntityManagerFactory emf) {
 		this.emf = emf;
 		this.patient = patient;

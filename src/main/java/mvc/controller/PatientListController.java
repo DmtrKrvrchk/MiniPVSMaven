@@ -14,7 +14,10 @@ public class PatientListController {
     private final EntityManagerFactory emf;
 
 
-    public PatientListController() { emf = Persistence.createEntityManagerFactory("EntityManager"); }
+    public PatientListController() {
+        //TODO in neue Klasse Patientmanager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
+        emf = Persistence.createEntityManagerFactory("EntityManager");
+    }
 
 
     public void newPatient() {
@@ -43,6 +46,7 @@ public class PatientListController {
                 JOptionPane.YES_NO_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {
+            //TODO in neue Klasse MedicalRecordManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
             EntityManager em = emf.createEntityManager();
 

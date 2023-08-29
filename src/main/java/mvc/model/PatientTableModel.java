@@ -29,6 +29,7 @@ public class PatientTableModel extends AbstractTableModel {
 
 
     private static void getPatientsFromDatabase() {
+        //TODO in neue Klasse patientManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
         EntityManager em = HibernateUtil.getSessionFactory().createEntityManager();
 
         try {

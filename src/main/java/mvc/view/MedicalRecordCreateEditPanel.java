@@ -129,6 +129,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
 
             MedicalRecordModel newMedicalRecord = new MedicalRecordModel(date, type, description, patient);
 
+            //TODO in neue Klasse MedicalRecordManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
@@ -156,6 +157,8 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             medicalRecordToEdit.setDate(date);
             medicalRecordToEdit.setType(type);
             medicalRecordToEdit.setDescription(description);
+
+            //TODO in neue Klasse MedicalRecordManager auslagern und so schreiben, dass jedes mal eine neue EntityMagaerFactory erstellt wird
 
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
             EntityManager em = emf.createEntityManager();
