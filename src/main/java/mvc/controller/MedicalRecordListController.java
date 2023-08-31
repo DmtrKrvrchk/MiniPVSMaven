@@ -4,6 +4,7 @@ package mvc.controller;
 import mvc.model.MedicalRecordModel;
 import mvc.model.PatientModel;
 import mvc.view.MedicalRecordCreateEditPanel;
+import mvc.view.MedicalRecordListView;
 
 import javax.swing.*;
 
@@ -12,9 +13,12 @@ public class MedicalRecordListController {
     private final PatientModel patient;
     private final MedicalRecordManager medicalRecordManager;
 
+    private MedicalRecordListView view;
 
-    public MedicalRecordListController(PatientModel patient) {
+
+    public MedicalRecordListController(PatientModel patient, MedicalRecordListView view) {
         this.patient = patient;
+        this.view = view;
         this.medicalRecordManager = new MedicalRecordManager();
     }
 
@@ -31,7 +35,7 @@ public class MedicalRecordListController {
     public void editMedicalRecord(MedicalRecordModel medicalRecordToEdit) {
         JFrame frame = new JFrame("Patientenakte bearbeiten");
         frame.setSize(400, 300);
-        MedicalRecordCreateEditPanel medicalRecordCreateEditPanel = new MedicalRecordCreateEditPanel(frame, medicalRecordToEdit, this.patient);
+        MedicalRecordCreateEditPanel medicalRecordCreateEditPanel = new MedicalRecordCreateEditPanel(frame, medicalRecordToEdit, this.patient, view);
         frame.add(medicalRecordCreateEditPanel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);

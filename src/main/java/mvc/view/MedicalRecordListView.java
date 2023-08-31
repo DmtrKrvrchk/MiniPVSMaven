@@ -26,7 +26,7 @@ public class MedicalRecordListView extends JPanel {
     public MedicalRecordListView() {}
     public MedicalRecordListView(PatientModel patient) {
         this.patient = patient;
-        medicalRecordListController = new MedicalRecordListController(patient);
+        medicalRecordListController = new MedicalRecordListController(patient, this);
         medicalRecordTable = new JTable(MedicalRecordTableModel.getInstance(patient));
         initComponents();
         initActionsListener();
@@ -111,6 +111,11 @@ public class MedicalRecordListView extends JPanel {
 
     public void showMedicalRecordsForPatient(PatientModel patient) {
         this.patient = patient;
+        medicalRecordTable.setModel(MedicalRecordTableModel.getInstance(patient));
+        medicalRecordTable.updateUI();
+    }
+
+    public void updateContent(){
         medicalRecordTable.setModel(MedicalRecordTableModel.getInstance(patient));
         medicalRecordTable.updateUI();
     }

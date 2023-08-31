@@ -23,6 +23,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
     private JTextField descriptionField;
     private MedicalRecordModel medicalRecord;
 
+    private MedicalRecordListView view;
 
     public MedicalRecordCreateEditPanel(JFrame parent, PatientModel patient) {
         this.parent = parent;
@@ -30,10 +31,11 @@ public class MedicalRecordCreateEditPanel extends JPanel {
         initComponents();
     }
 
-    public MedicalRecordCreateEditPanel(JFrame parent, MedicalRecordModel medicalRecord, PatientModel patient){
+    public MedicalRecordCreateEditPanel(JFrame parent, MedicalRecordModel medicalRecord, PatientModel patient, MedicalRecordListView view){
         this.medicalRecord = medicalRecord;
         this.parent = parent;
         this.patient= patient;
+        this.view = view;
         initComponents();
         initValues();
     }
@@ -156,7 +158,10 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
             medicalRecordManager.updateMedicalRecord(medicalRecordToEdit);
 
-            MedicalRecordTableModel.getInstance(patient).fireTableDataChanged();
+           // MedicalRecordTableModel.getInstance(patient).fireTableDataChanged();
+            view.updateContent();
+
+            //TODO MedicalRecordListView
             parent.dispose();
         }
     }

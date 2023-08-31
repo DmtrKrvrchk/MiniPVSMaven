@@ -39,6 +39,10 @@ public class MedicalRecordTableModel extends AbstractTableModel {
         fireTableRowsDeleted(row, row);
     }
 
+    public List<MedicalRecordModel> getRecords(){
+        return medicalRecords;
+    }
+
     @Override
     public int getRowCount() {
         return medicalRecords.size();
