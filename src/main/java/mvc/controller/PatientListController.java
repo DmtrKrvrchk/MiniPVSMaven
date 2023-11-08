@@ -19,6 +19,7 @@ public class PatientListController {
     public void newPatient() {
         JFrame frame = new JFrame("Patient*in anlegen");
         frame.setSize(400, 300);
+        frame.setResizable(false);
         PatientCreateEditPanel patientCreateEditPanel = new PatientCreateEditPanel(frame);
         frame.add(patientCreateEditPanel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -28,6 +29,7 @@ public class PatientListController {
     public void editPatient(PatientModel patientToEdit) {
         JFrame frame = new JFrame("Patienteninformation bearbeiten");
         frame.setSize(400, 300);
+        frame.setResizable(false);
         PatientCreateEditPanel patientCreateEditPanel = new PatientCreateEditPanel(frame, patientToEdit);
         frame.add(patientCreateEditPanel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

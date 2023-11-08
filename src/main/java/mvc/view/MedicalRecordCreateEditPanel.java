@@ -18,16 +18,17 @@ import java.time.format.DateTimeParseException;
 public class MedicalRecordCreateEditPanel extends JPanel {
     private final PatientModel patient;
     private final JFrame parent;
+    private final MedicalRecordListView view;
     private JTextField dateField;
     private JComboBox<MedicalRecordType> typeComboBox;
     private JTextField descriptionField;
     private MedicalRecordModel medicalRecord;
 
-    private MedicalRecordListView view;
 
-    public MedicalRecordCreateEditPanel(JFrame parent, PatientModel patient) {
+    public MedicalRecordCreateEditPanel(JFrame parent, PatientModel patient, MedicalRecordListView view) {
         this.parent = parent;
         this.patient = patient;
+        this.view = view;
         initComponents();
     }
 
@@ -133,10 +134,16 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
             medicalRecordManager.createMedicalRecord(newMedicalRecord);
 
-            MedicalRecordTableModel.getInstance(patient).addMedicalRecord(newMedicalRecord);
+
+            MedicalRecordTableModel patientMedicalRecordTableModel = new MedicalRecordTableModel(patient);
+
+            patientMedicalRecordTableModel.addMedicalRecord(newMedicalRecord);
+            view.updateContent();
+
             parent.dispose();
         }
     }
+
 
     private void editMedicalRecord(MedicalRecordModel medicalRecordToEdit) {
         if (validateFields()) {
@@ -158,7 +165,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
             medicalRecordManager.updateMedicalRecord(medicalRecordToEdit);
 
-           // MedicalRecordTableModel.getInstance(patient).fireTableDataChanged();
+            // MedicalRecordTableModel.getInstance(patient).fireTableDataChanged();
             view.updateContent();
 
             //TODO MedicalRecordListView

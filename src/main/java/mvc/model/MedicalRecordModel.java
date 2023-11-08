@@ -16,7 +16,7 @@ public class MedicalRecordModel {
     private MedicalRecordType type;
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
     private PatientModel patient;
 
@@ -38,4 +38,6 @@ public class MedicalRecordModel {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public long getId() { return id; }
 }

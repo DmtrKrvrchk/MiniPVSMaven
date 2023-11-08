@@ -18,6 +18,8 @@ public class MainMenuView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(650, 525);
         setLocationRelativeTo(null);
+        setResizable(false);
+
 
         tabbedPane = new JTabbedPane();
 

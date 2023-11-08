@@ -9,22 +9,10 @@ import java.util.List;
 public class MedicalRecordTableModel extends AbstractTableModel {
     private final List<MedicalRecordModel> medicalRecords;
     private final String[] columnNames = {"Datum", "Typ", "Beschreibung"};
-    private static MedicalRecordTableModel instance;
 
 
     public MedicalRecordTableModel(PatientModel patient) { this.medicalRecords = patient.getMedicalRecords(); }
 
-
-    public static MedicalRecordTableModel getInstance(PatientModel patient) {
-        if (instance == null || checkOtherRecords(patient)) {
-            instance = new MedicalRecordTableModel(patient);
-        }
-        return instance;
-    }
-
-    private static boolean checkOtherRecords(PatientModel patient) {
-        return instance != null && instance.medicalRecords != patient.getMedicalRecords();
-    }
 
     public void addMedicalRecord(MedicalRecordModel medicalRecordToAdd) {
         medicalRecords.add(medicalRecordToAdd);
@@ -37,10 +25,6 @@ public class MedicalRecordTableModel extends AbstractTableModel {
     public void removeMedicalRecordAt(int row) {
         medicalRecords.remove(row);
         fireTableRowsDeleted(row, row);
-    }
-
-    public List<MedicalRecordModel> getRecords(){
-        return medicalRecords;
     }
 
     @Override

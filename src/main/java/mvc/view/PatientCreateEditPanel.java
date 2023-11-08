@@ -21,20 +21,15 @@ public class PatientCreateEditPanel extends JPanel {
 	private JComboBox<String> genderComboBox;
 	private final JFrame parent;
 	private final PatientManager patientManager;
-	//private final EntityManagerFactory emf;
 
 
-	//TODO emf nicht in konstruktor, stattdessen methoden aus neuer Klasse Patientenmanager aufrufen
 	public PatientCreateEditPanel(JFrame parent) {
-		//this.emf = emf;
 		this.parent = parent;
 		this.patientManager = new PatientManager();
 		initComponents();
 	}
 
-	//TODO emf nicht in konstruktor, stattdessen methoden aus neuer Klasse Patientenmanager aufrufen
 	public PatientCreateEditPanel(JFrame parent, PatientModel patient) {
-		//this.emf = emf;
 		this.patient = patient;
 		this.parent = parent;
 		this.patientManager = new PatientManager();

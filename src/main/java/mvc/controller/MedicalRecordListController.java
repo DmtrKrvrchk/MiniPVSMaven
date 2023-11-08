@@ -12,8 +12,7 @@ import javax.swing.*;
 public class MedicalRecordListController {
     private final PatientModel patient;
     private final MedicalRecordManager medicalRecordManager;
-
-    private MedicalRecordListView view;
+    private final MedicalRecordListView view;
 
 
     public MedicalRecordListController(PatientModel patient, MedicalRecordListView view) {
@@ -26,7 +25,7 @@ public class MedicalRecordListController {
     public void newMedicalRecord() {
         JFrame frame = new JFrame("Patientenakte anlegen");
         frame.setSize(400, 300);
-        MedicalRecordCreateEditPanel medicalRecordCreateEditPanel = new MedicalRecordCreateEditPanel(frame, this.patient);
+        MedicalRecordCreateEditPanel medicalRecordCreateEditPanel = new MedicalRecordCreateEditPanel(frame, this.patient, view);
         frame.add(medicalRecordCreateEditPanel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);

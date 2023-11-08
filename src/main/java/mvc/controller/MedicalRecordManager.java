@@ -11,9 +11,10 @@ import java.util.List;
 
 
 public class MedicalRecordManager {
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
+
 
     public void createMedicalRecord(MedicalRecordModel medicalRecord) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
         EntityManager em = emf.createEntityManager();
 
         try {
@@ -27,12 +28,10 @@ public class MedicalRecordManager {
             e.printStackTrace();
         } finally {
             em.close();
-            emf.close();
         }
     }
 
     public void updateMedicalRecord(MedicalRecordModel medicalRecord) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
         EntityManager em = emf.createEntityManager();
 
         try {
@@ -46,20 +45,23 @@ public class MedicalRecordManager {
             e.printStackTrace();
         } finally {
             em.close();
-            emf.close();
         }
     }
 
+
     public boolean deleteMedicalRecord(MedicalRecordModel medicalRecord) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
         EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
-            MedicalRecordModel managedMedicalRecord = em.merge(medicalRecord);
-            em.remove(managedMedicalRecord);
+            medicalRecord = em.find(MedicalRecordModel.class, medicalRecord.getId());
+            if (medicalRecord != null) {
+                em.remove(medicalRecord);
+                em.getTransaction().commit();
+                return true;
+            }
             em.getTransaction().commit();
-            return true;
+            return false;
         } catch (Exception e) {
             if (em.getTransaction() != null && em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
@@ -68,12 +70,11 @@ public class MedicalRecordManager {
             return false;
         } finally {
             em.close();
-            emf.close();
         }
     }
 
+
     public List<MedicalRecordModel> getMedicalRecordsForPatient(PatientModel patient) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -86,7 +87,6 @@ public class MedicalRecordManager {
             return medicalRecords;
         } finally {
             em.close();
-            emf.close();
         }
     }
 }

@@ -21,7 +21,7 @@ public class PatientModel {
     private String gender;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicalRecordModel> medicalRecords;
+    private final List<MedicalRecordModel> medicalRecords = new ArrayList<>();
 
 
     public PatientModel() {}
@@ -30,7 +30,6 @@ public class PatientModel {
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
-        this.medicalRecords = new ArrayList<>();
     }
 
 

@@ -13,11 +13,11 @@ public class PatientTableModel extends AbstractTableModel {
     private List<PatientModel> patients;
     private final String[] columnNames = {"Name", "Vorname", "Geburtsdatum", "Geschlecht"};
     private static PatientTableModel instance;
-    private final PatientManager patientManager = new PatientManager();
 
 
     public PatientTableModel() {
         this.patients = new ArrayList<>();
+        PatientManager patientManager = new PatientManager();
         setPatients(patientManager.getPatientsFromDatabase());
     }
 

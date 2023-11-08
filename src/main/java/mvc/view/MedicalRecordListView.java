@@ -27,16 +27,15 @@ public class MedicalRecordListView extends JPanel {
     public MedicalRecordListView(PatientModel patient) {
         this.patient = patient;
         medicalRecordListController = new MedicalRecordListController(patient, this);
-        medicalRecordTable = new JTable(MedicalRecordTableModel.getInstance(patient));
+        medicalRecordTable = new JTable(new MedicalRecordTableModel(patient)); // Create a new instance here
         initComponents();
         initActionsListener();
     }
 
-
     private void initActionsListener() {
         newRecordButton.addActionListener(e -> {
-           medicalRecordListController.newMedicalRecord();
-           medicalRecordTable.updateUI();
+            medicalRecordListController.newMedicalRecord();
+            medicalRecordTable.updateUI();
         });
 
         medicalRecordTable.getSelectionModel().addListSelectionListener(e -> {
@@ -49,7 +48,7 @@ public class MedicalRecordListView extends JPanel {
         editRecordButton.addActionListener(e -> {
             int selectedRow = medicalRecordTable.getSelectedRow();
             if (selectedRow >= 0) {
-                MedicalRecordModel selectedMedicalRecord = MedicalRecordTableModel.getInstance(patient).getMedicalRecordAt(selectedRow);
+                MedicalRecordModel selectedMedicalRecord = ((MedicalRecordTableModel) medicalRecordTable.getModel()).getMedicalRecordAt(selectedRow);
                 medicalRecordListController.editMedicalRecord(selectedMedicalRecord);
             }
         });
@@ -57,9 +56,9 @@ public class MedicalRecordListView extends JPanel {
         deleteRecordButton.addActionListener(e -> {
             int selectedRow = medicalRecordTable.getSelectedRow();
             if (selectedRow >= 0) {
-                MedicalRecordModel selectedMedicalRecord = MedicalRecordTableModel.getInstance(patient).getMedicalRecordAt(selectedRow);
+                MedicalRecordModel selectedMedicalRecord = ((MedicalRecordTableModel) medicalRecordTable.getModel()).getMedicalRecordAt(selectedRow);
                 if (medicalRecordListController.deleteMedicalRecord(selectedMedicalRecord)) {
-                    MedicalRecordTableModel.getInstance(patient).removeMedicalRecordAt(selectedRow);
+                    ((MedicalRecordTableModel) medicalRecordTable.getModel()).removeMedicalRecordAt(selectedRow);
                 }
             }
         });
@@ -111,12 +110,13 @@ public class MedicalRecordListView extends JPanel {
 
     public void showMedicalRecordsForPatient(PatientModel patient) {
         this.patient = patient;
-        medicalRecordTable.setModel(MedicalRecordTableModel.getInstance(patient));
+        medicalRecordTable.setModel(new MedicalRecordTableModel(patient)); // Create a new instance here
         medicalRecordTable.updateUI();
     }
 
-    public void updateContent(){
-        medicalRecordTable.setModel(MedicalRecordTableModel.getInstance(patient));
+    public void updateContent() {
+        medicalRecordTable.setModel(new MedicalRecordTableModel(patient)); // Create a new instance here
         medicalRecordTable.updateUI();
     }
+
 }
