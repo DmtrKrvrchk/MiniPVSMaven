@@ -165,10 +165,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
             medicalRecordManager.updateMedicalRecord(medicalRecordToEdit);
 
-            // MedicalRecordTableModel.getInstance(patient).fireTableDataChanged();
             view.updateContent();
-
-            //TODO MedicalRecordListView
             parent.dispose();
         }
     }
