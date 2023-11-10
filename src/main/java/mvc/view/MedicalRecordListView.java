@@ -27,7 +27,7 @@ public class MedicalRecordListView extends JPanel {
     public MedicalRecordListView(PatientModel patient) {
         this.patient = patient;
         medicalRecordListController = new MedicalRecordListController(patient, this);
-        medicalRecordTable = new JTable(new MedicalRecordTableModel(patient)); // Create a new instance here
+        medicalRecordTable = new JTable(new MedicalRecordTableModel(patient));
         initComponents();
         initActionsListener();
     }
@@ -110,12 +110,12 @@ public class MedicalRecordListView extends JPanel {
 
     public void showMedicalRecordsForPatient(PatientModel patient) {
         this.patient = patient;
-        medicalRecordTable.setModel(new MedicalRecordTableModel(patient)); // Create a new instance here
+        medicalRecordTable.setModel(new MedicalRecordTableModel(patient));
         medicalRecordTable.updateUI();
     }
 
     public void updateContent() {
-        medicalRecordTable.setModel(new MedicalRecordTableModel(patient)); // Create a new instance here
+        medicalRecordTable.setModel(new MedicalRecordTableModel(patient));
         medicalRecordTable.updateUI();
     }
 

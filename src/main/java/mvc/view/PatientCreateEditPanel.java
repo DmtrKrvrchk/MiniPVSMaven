@@ -130,7 +130,7 @@ public class PatientCreateEditPanel extends JPanel {
 			try {
 				birthDate = LocalDate.parse(birthDateField.getText(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 			} catch (DateTimeParseException e) {
-				JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT-MM-JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT.MM.JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			String gender = (String) genderComboBox.getSelectedItem();
@@ -152,7 +152,7 @@ public class PatientCreateEditPanel extends JPanel {
 			try {
 				birthDate = LocalDate.parse(birthDateField.getText(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 			} catch (DateTimeParseException e) {
-				JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT-MM-JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT.MM.JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
@@ -211,7 +211,7 @@ public class PatientCreateEditPanel extends JPanel {
 				}
 			}
 		} catch (DateTimeParseException e) {
-			JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT-MM-JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT.MM.JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;

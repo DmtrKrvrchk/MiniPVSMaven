@@ -8,6 +8,8 @@ import mvc.model.PatientTableModel;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class PatientListView extends JPanel {
@@ -26,6 +28,7 @@ public class PatientListView extends JPanel {
         patientTable = new JTable(PatientTableModel.getInstance());
         initComponents();
         initActionListener();
+        initMouseListener();
     }
 
 
@@ -71,6 +74,23 @@ public class PatientListView extends JPanel {
                 new MedicalRecordListView(selectedPatient).setVisible(true);
                 mainMenuView.updatePatientenakteTab(selectedPatient);
                 mainMenuView.switchToMedicalRecordTab(selectedPatient);
+            }
+        });
+    }
+
+    private void initMouseListener() {
+        patientTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int selectedRow = patientTable.getSelectedRow();
+                    if (selectedRow >= 0) {
+                        PatientModel selectedPatient = PatientTableModel.getInstance().getPatientAt(selectedRow);
+                        new MedicalRecordListView(selectedPatient).setVisible(true);
+                        mainMenuView.updatePatientenakteTab(selectedPatient);
+                        mainMenuView.switchToMedicalRecordTab(selectedPatient);
+                    }
+                }
             }
         });
     }

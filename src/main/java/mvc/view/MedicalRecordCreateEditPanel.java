@@ -122,7 +122,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             try {
                 date = LocalDate.parse(dateField.getText(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
             } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "Ungültiges Datum. Bitte verwenden Sie das Format TT-MM-JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ungültiges Datum. Bitte verwenden Sie das Format TT.MM.JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             MedicalRecordType type = (MedicalRecordType) typeComboBox.getSelectedItem();
@@ -151,7 +151,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             try {
                 date = LocalDate.parse(dateField.getText(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
             } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "Ungültiges Datum. Bitte verwenden Sie das Format TT-MM-JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ungültiges Datum. Bitte verwenden Sie das Format TT.MM.JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             MedicalRecordType type = (MedicalRecordType) typeComboBox.getSelectedItem();
@@ -208,7 +208,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
                 }
             }
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Ungültiges Datum. Bitte verwenden Sie das Format TT-MM-JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ungültiges Datum. Bitte verwenden Sie das Format TT.MM.JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
