@@ -44,6 +44,8 @@ public class MedicalRecordCreateEditPanel extends JPanel {
 
     private void initComponents() {
         this.setLayout(new BorderLayout());
+        parent.setLocationRelativeTo(null);
+        parent.setResizable(false);
 
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -130,10 +132,8 @@ public class MedicalRecordCreateEditPanel extends JPanel {
 
             MedicalRecordModel newMedicalRecord = new MedicalRecordModel(date, type, description, patient);
 
-
             MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
             medicalRecordManager.createMedicalRecord(newMedicalRecord);
-
 
             MedicalRecordTableModel patientMedicalRecordTableModel = new MedicalRecordTableModel(patient);
 
@@ -160,7 +160,6 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             medicalRecordToEdit.setDate(date);
             medicalRecordToEdit.setType(type);
             medicalRecordToEdit.setDescription(description);
-
 
             MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
             medicalRecordManager.updateMedicalRecord(medicalRecordToEdit);

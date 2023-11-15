@@ -99,7 +99,6 @@ public class PatientListView extends JPanel {
     private void initComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-
         JScrollPane scrollPane = new JScrollPane(patientTable);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -130,7 +129,6 @@ public class PatientListView extends JPanel {
         buttonContainer.add(deletePatientButton);
 
         buttonPanel.add(buttonContainer, BorderLayout.NORTH);
-
         mainPanel.add(buttonPanel, BorderLayout.EAST);
         add(mainPanel);
     }

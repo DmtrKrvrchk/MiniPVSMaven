@@ -2,6 +2,7 @@ package mvc.view;
 
 
 import mvc.controller.PatientManager;
+import mvc.model.Gender;
 import mvc.model.PatientModel;
 import mvc.model.PatientTableModel;
 
@@ -18,7 +19,7 @@ public class PatientCreateEditPanel extends JPanel {
 	private JTextField firstNameField;
 	private JTextField lastNameField;
 	private JTextField birthDateField;
-	private JComboBox<String> genderComboBox;
+	private JComboBox<Gender> genderComboBox;
 	private final JFrame parent;
 	private final PatientManager patientManager;
 
@@ -40,6 +41,7 @@ public class PatientCreateEditPanel extends JPanel {
 
 	private void initComponents() {
 		this.setLayout(new BorderLayout());
+		parent.setLocationRelativeTo(null);
 
 		JPanel inputPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -84,12 +86,12 @@ public class PatientCreateEditPanel extends JPanel {
 		gbc.gridy = 3;
 		gbc.weightx = 0.0;
 		gbc.fill = GridBagConstraints.NONE;
-		inputPanel.add(new JLabel("Geburtsdatum:"), gbc);
+		inputPanel.add(new JLabel("Geschlecht:"), gbc);
 		gbc.gridx = 1;
 		gbc.gridy = 3;
 		gbc.weightx = 1.0;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
-		genderComboBox = new JComboBox<>(new String[]{"Männlich", "Weiblich", "Andere"});
+		genderComboBox = new JComboBox<>(Gender.values());
 		inputPanel.add(genderComboBox, gbc);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1,4,5,5));
@@ -104,7 +106,6 @@ public class PatientCreateEditPanel extends JPanel {
 
 		saveButton.setBorder(compoundBorder);
 		cancelButton.setBorder(compoundBorder);
-
 		buttonPanel.add(saveButton);
 		buttonPanel.add(cancelButton);
 
@@ -133,7 +134,7 @@ public class PatientCreateEditPanel extends JPanel {
 				JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT.MM.JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			String gender = (String) genderComboBox.getSelectedItem();
+			Gender gender = (Gender) genderComboBox.getSelectedItem();
 
 			PatientModel newPatient = new PatientModel(firstName, lastName, birthDate, gender);
 			patientManager.createPatient(newPatient);
@@ -148,15 +149,13 @@ public class PatientCreateEditPanel extends JPanel {
 			String firstName = firstNameField.getText();
 			String lastName = lastNameField.getText();
 			LocalDate birthDate;
-
 			try {
 				birthDate = LocalDate.parse(birthDateField.getText(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 			} catch (DateTimeParseException e) {
 				JOptionPane.showMessageDialog(this, "Ungültiges Geburtsdatum. Bitte verwenden Sie das Format TT.MM.JJJJ.", "Fehler", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-
-			String gender = (String) genderComboBox.getSelectedItem();
+			Gender gender = (Gender) genderComboBox.getSelectedItem();
 
 			patientToEdit.setFirstName(firstName);
 			patientToEdit.setLastName(lastName);
@@ -164,7 +163,6 @@ public class PatientCreateEditPanel extends JPanel {
 			patientToEdit.setGender(gender);
 
 			patientManager.updatePatient(patientToEdit);
-
 			PatientTableModel.getInstance().fireTableDataChanged();
 			parent.dispose();
 		}

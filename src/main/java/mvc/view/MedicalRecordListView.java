@@ -103,7 +103,6 @@ public class MedicalRecordListView extends JPanel {
         buttonContainer.add(deleteRecordButton);
 
         buttonPanel.add(buttonContainer, BorderLayout.NORTH);
-
         mainPanel.add(buttonPanel, BorderLayout.EAST);
         add(mainPanel);
     }
@@ -118,5 +117,4 @@ public class MedicalRecordListView extends JPanel {
         medicalRecordTable.setModel(new MedicalRecordTableModel(patient));
         medicalRecordTable.updateUI();
     }
-
 }

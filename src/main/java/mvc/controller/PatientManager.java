@@ -2,19 +2,15 @@ package mvc.controller;
 
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import mvc.model.PatientModel;
 
 import java.util.List;
 
 
+
 public class PatientManager {
-
     public void createPatient(PatientModel patient) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
-        EntityManager em = emf.createEntityManager();
-
+        EntityManager em = Main.session.createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(patient);
@@ -26,14 +22,11 @@ public class PatientManager {
             e.printStackTrace();
         } finally {
             em.close();
-            emf.close();
         }
     }
 
     public void updatePatient(PatientModel patient) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
-        EntityManager em = emf.createEntityManager();
-
+        EntityManager em = Main.session.createEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(patient);
@@ -45,14 +38,11 @@ public class PatientManager {
             e.printStackTrace();
         } finally {
             em.close();
-            emf.close();
         }
     }
 
     public boolean deletePatient(PatientModel patient) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
-        EntityManager em = emf.createEntityManager();
-
+        EntityManager em = Main.session.createEntityManager();
         try {
             em.getTransaction().begin();
             PatientModel managedPatient = em.merge(patient);
@@ -67,14 +57,11 @@ public class PatientManager {
             return false;
         } finally {
             em.close();
-            emf.close();
         }
     }
 
-    public List<PatientModel> getPatientsFromDatabase() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
-        EntityManager em = emf.createEntityManager();
-
+    public List<PatientModel> getPatients() {
+        EntityManager em = Main.session.createEntityManager();
         try {
             em.getTransaction().begin();
 
@@ -91,7 +78,6 @@ public class PatientManager {
             return null;
         } finally {
             em.close();
-            emf.close();
         }
     }
 }

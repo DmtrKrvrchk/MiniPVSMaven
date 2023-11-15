@@ -1,37 +1,49 @@
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
-import java.time.LocalDate;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import mvc.model.Gender;
 import mvc.model.MedicalRecordModel;
 import mvc.model.MedicalRecordType;
 import mvc.model.PatientModel;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MedicalRecordModelTest {
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
+    private EntityManager em;
+    private EntityTransaction transaction;
+
+    @BeforeEach
+    public void setUp() {
+        em = emf.createEntityManager();
+        transaction = em.getTransaction();
+        transaction.begin();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        transaction.rollback();
+        em.close();
+    }
 
     @Test
-    public void testMedicalRecordModelGettersAndSetters() {
-        PatientModel patient = new PatientModel("John", "Doe", LocalDate.of(1990, 1, 1), "Male");
+    public void testGetMedicalRecords() {
+        PatientModel patient = new PatientModel("Patient", "Test", LocalDate.of(2001, 1, 1), Gender.MALE);
+        em.persist(patient);
 
-        MedicalRecordModel medicalRecord = new MedicalRecordModel(
-                LocalDate.of(2023, 11, 6),
-                MedicalRecordType.DIAGNOSE,
-                "Description",
-                patient
-        );
+        MedicalRecordModel medicalRecord = new MedicalRecordModel(LocalDate.now(), MedicalRecordType.SCHEIN, "Test", patient);
+        em.persist(medicalRecord);
 
-        assertEquals(LocalDate.of(2023, 11, 6), medicalRecord.getDate());
-        assertEquals(MedicalRecordType.DIAGNOSE, medicalRecord.getType());
-        assertEquals("Description", medicalRecord.getDescription());
+        List<MedicalRecordModel> medicalRecords = patient.getMedicalRecords();
 
-        LocalDate newDate = LocalDate.of(2023, 11, 7);
-        medicalRecord.setDate(newDate);
-        assertEquals(newDate, medicalRecord.getDate());
-
-        MedicalRecordType newType = MedicalRecordType.SCHEIN;
-        medicalRecord.setType(newType);
-        assertEquals(newType, medicalRecord.getType());
-
-        String newDescription = "Updated description";
-        medicalRecord.setDescription(newDescription);
-        assertEquals(newDescription, medicalRecord.getDescription());
+        assertEquals(1, medicalRecords.size());
+        assertEquals(medicalRecord.getId(), medicalRecords.get(0).getId());
     }
 }

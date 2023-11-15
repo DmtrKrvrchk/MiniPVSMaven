@@ -20,7 +20,6 @@ public class MainMenuView extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-
         tabbedPane = new JTabbedPane();
 
         PatientListView patientListView = new PatientListView(this);

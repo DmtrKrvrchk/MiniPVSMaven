@@ -11,14 +11,14 @@ import java.util.List;
 
 public class PatientTableModel extends AbstractTableModel {
     private List<PatientModel> patients;
-    private final String[] columnNames = {"Name", "Vorname", "Geburtsdatum", "Geschlecht"};
+    private final String[] columnNames = {"Nachname", "Vorname", "Geburtsdatum", "Geschlecht"};
     private static PatientTableModel instance;
 
 
     public PatientTableModel() {
         this.patients = new ArrayList<>();
         PatientManager patientManager = new PatientManager();
-        setPatients(patientManager.getPatientsFromDatabase());
+        setPatients(patientManager.getPatients());
     }
 
 
@@ -37,7 +37,7 @@ public class PatientTableModel extends AbstractTableModel {
 
     public void addPatient(PatientModel patientToAdd) {
         patients.add(patientToAdd);
-        fireTableRowsInserted(patients.size() - 1, patients.size() - 1);
+        fireTableRowsInserted(patients.size(), patients.size());
     }
 
     public PatientModel getPatientAt(int row) {

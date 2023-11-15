@@ -13,19 +13,20 @@ import java.util.List;
 public class PatientModel {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<MedicalRecordModel> medicalRecords = new ArrayList<>();
 
 
     public PatientModel() {}
-    public PatientModel(String firstName, String lastName, LocalDate dateOfBirth, String gender) {
+    public PatientModel(String firstName, String lastName, LocalDate dateOfBirth, Gender gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -38,6 +39,9 @@ public class PatientModel {
         return recordManager.getMedicalRecordsForPatient(this);
     }
 
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
+
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
@@ -47,6 +51,6 @@ public class PatientModel {
     public LocalDate getDateOfBirth() { return dateOfBirth; }
     public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
-    public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
+    public Gender getGender() { return gender; }
+    public void setGender(Gender gender) { this.gender = gender; }
 }

@@ -10,7 +10,6 @@ public enum MedicalRecordType {
 
 
     private final String displayName;
-
     MedicalRecordType(String displayName) {
         this.displayName = displayName;
     }

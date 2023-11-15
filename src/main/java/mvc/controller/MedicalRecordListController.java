@@ -11,14 +11,12 @@ import javax.swing.*;
 
 public class MedicalRecordListController {
     private final PatientModel patient;
-    private final MedicalRecordManager medicalRecordManager;
     private final MedicalRecordListView view;
 
 
     public MedicalRecordListController(PatientModel patient, MedicalRecordListView view) {
         this.patient = patient;
         this.view = view;
-        this.medicalRecordManager = new MedicalRecordManager();
     }
 
 
@@ -48,7 +46,7 @@ public class MedicalRecordListController {
                 JOptionPane.YES_NO_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {
-            if (medicalRecordManager.deleteMedicalRecord(medicalRecordToDelete)) {
+            if (MedicalRecordManager.deleteMedicalRecord(medicalRecordToDelete)) {
                 JOptionPane.showMessageDialog(
                         null,
                         "Patientenakte erfolgreich gelöscht!",

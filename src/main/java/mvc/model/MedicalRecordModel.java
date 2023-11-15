@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class MedicalRecordModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private LocalDate date;
     @Enumerated(EnumType.STRING)
@@ -40,4 +40,8 @@ public class MedicalRecordModel {
     public void setDescription(String description) { this.description = description; }
 
     public long getId() { return id; }
+
+    public void setPatientId(PatientModel patient) {
+        this.patient = patient;
+    }
 }

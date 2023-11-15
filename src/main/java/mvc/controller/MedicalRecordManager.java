@@ -2,8 +2,6 @@ package mvc.controller;
 
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import mvc.model.MedicalRecordModel;
 import mvc.model.PatientModel;
 
@@ -11,12 +9,8 @@ import java.util.List;
 
 
 public class MedicalRecordManager {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("EntityManager");
-
-
     public void createMedicalRecord(MedicalRecordModel medicalRecord) {
-        EntityManager em = emf.createEntityManager();
-
+        EntityManager em = Main.session.createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(medicalRecord);
@@ -32,8 +26,7 @@ public class MedicalRecordManager {
     }
 
     public void updateMedicalRecord(MedicalRecordModel medicalRecord) {
-        EntityManager em = emf.createEntityManager();
-
+        EntityManager em = Main.session.createEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(medicalRecord);
@@ -49,9 +42,8 @@ public class MedicalRecordManager {
     }
 
 
-    public boolean deleteMedicalRecord(MedicalRecordModel medicalRecord) {
-        EntityManager em = emf.createEntityManager();
-
+    public static boolean deleteMedicalRecord(MedicalRecordModel medicalRecord) {
+        EntityManager em = Main.session.createEntityManager();
         try {
             em.getTransaction().begin();
             medicalRecord = em.find(MedicalRecordModel.class, medicalRecord.getId());
@@ -75,7 +67,7 @@ public class MedicalRecordManager {
 
 
     public List<MedicalRecordModel> getMedicalRecordsForPatient(PatientModel patient) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = Main.session.createEntityManager();
         try {
             em.getTransaction().begin();
 
