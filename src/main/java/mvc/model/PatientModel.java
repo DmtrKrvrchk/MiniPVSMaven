@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import mvc.controller.MedicalRecordManager;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,9 +19,6 @@ public class PatientModel {
     private LocalDate dateOfBirth;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<MedicalRecordModel> medicalRecords = new ArrayList<>();
 
 
     public PatientModel() {}

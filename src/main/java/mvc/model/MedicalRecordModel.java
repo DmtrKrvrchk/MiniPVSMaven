@@ -16,17 +16,16 @@ public class MedicalRecordModel {
     private MedicalRecordType type;
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "patient_id")
-    private PatientModel patient;
+    @Basic
+    private long patient_id;
 
 
     public MedicalRecordModel() {}
-    public MedicalRecordModel(LocalDate date, MedicalRecordType type, String description, PatientModel patient) {
+    public MedicalRecordModel(LocalDate date, MedicalRecordType type, String description, long patient_id) {
         this.date = date;
         this.type = type;
         this.description = description;
-        this.patient = patient;
+        this.patient_id = patient_id;
     }
 
 
@@ -41,7 +40,7 @@ public class MedicalRecordModel {
 
     public long getId() { return id; }
 
-    public void setPatientId(PatientModel patient) {
-        this.patient = patient;
+    public void setPatientId(long patient) {
+        this.patient_id = patient;
     }
 }

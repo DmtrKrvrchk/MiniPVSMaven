@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PatientManager {
     public void createPatient(PatientModel patient) {
-        EntityManager em = Main.session.createEntityManager();
+        EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(patient);
@@ -26,7 +26,7 @@ public class PatientManager {
     }
 
     public void updatePatient(PatientModel patient) {
-        EntityManager em = Main.session.createEntityManager();
+        EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(patient);
@@ -42,7 +42,7 @@ public class PatientManager {
     }
 
     public boolean deletePatient(PatientModel patient) {
-        EntityManager em = Main.session.createEntityManager();
+        EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
             PatientModel managedPatient = em.merge(patient);
@@ -61,7 +61,7 @@ public class PatientManager {
     }
 
     public List<PatientModel> getPatients() {
-        EntityManager em = Main.session.createEntityManager();
+        EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
 

@@ -130,7 +130,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             MedicalRecordType type = (MedicalRecordType) typeComboBox.getSelectedItem();
             String description = descriptionField.getText();
 
-            MedicalRecordModel newMedicalRecord = new MedicalRecordModel(date, type, description, patient);
+            MedicalRecordModel newMedicalRecord = new MedicalRecordModel(date, type, description, patient.getId());
 
             MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
             medicalRecordManager.createMedicalRecord(newMedicalRecord);

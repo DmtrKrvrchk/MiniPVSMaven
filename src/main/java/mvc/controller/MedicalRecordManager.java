@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MedicalRecordManager {
     public void createMedicalRecord(MedicalRecordModel medicalRecord) {
-        EntityManager em = Main.session.createEntityManager();
+        EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(medicalRecord);
@@ -26,7 +26,7 @@ public class MedicalRecordManager {
     }
 
     public void updateMedicalRecord(MedicalRecordModel medicalRecord) {
-        EntityManager em = Main.session.createEntityManager();
+        EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(medicalRecord);
@@ -43,7 +43,7 @@ public class MedicalRecordManager {
 
 
     public static boolean deleteMedicalRecord(MedicalRecordModel medicalRecord) {
-        EntityManager em = Main.session.createEntityManager();
+        EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
             medicalRecord = em.find(MedicalRecordModel.class, medicalRecord.getId());
@@ -67,12 +67,12 @@ public class MedicalRecordManager {
 
 
     public List<MedicalRecordModel> getMedicalRecordsForPatient(PatientModel patient) {
-        EntityManager em = Main.session.createEntityManager();
+        EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
 
-            List<MedicalRecordModel> medicalRecords = em.createQuery("SELECT m FROM MedicalRecordModel m WHERE m.patient = :patient", MedicalRecordModel.class)
-                    .setParameter("patient", patient)
+            List<MedicalRecordModel> medicalRecords = em.createQuery("SELECT m FROM MedicalRecordModel m WHERE m.patient_id = :patient_id", MedicalRecordModel.class)
+                    .setParameter("patient_id", patient.getId())
                     .getResultList();
 
             em.getTransaction().commit();
