@@ -4,6 +4,5 @@ import org.junit.platform.suite.api.Suite;
 
 @Suite
 @SelectPackages({"patientModelTests"})
-@IncludeTags({"Name", "Info"})
-public class TestSuite {
-}
+@IncludeTags({"Name", "Info", "GetMedicalRecord"})
+public class TestSuite {}

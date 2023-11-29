@@ -131,9 +131,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             String description = descriptionField.getText();
 
             MedicalRecordModel newMedicalRecord = new MedicalRecordModel(date, type, description, patient.getId());
-
-            MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
-            medicalRecordManager.createMedicalRecord(newMedicalRecord);
+            MedicalRecordManager.createMedicalRecord(newMedicalRecord);
 
             MedicalRecordTableModel patientMedicalRecordTableModel = new MedicalRecordTableModel(patient);
 
@@ -161,8 +159,7 @@ public class MedicalRecordCreateEditPanel extends JPanel {
             medicalRecordToEdit.setType(type);
             medicalRecordToEdit.setDescription(description);
 
-            MedicalRecordManager medicalRecordManager = new MedicalRecordManager();
-            medicalRecordManager.updateMedicalRecord(medicalRecordToEdit);
+            MedicalRecordManager.updateMedicalRecord(medicalRecordToEdit);
 
             view.updateContent();
             parent.dispose();

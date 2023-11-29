@@ -29,7 +29,6 @@ public class PatientInfoTest {
     public void testSetDateOfBirth() {
         LocalDate newDateOfBirth = LocalDate.of(1995, 5, 10);
         patient.setDateOfBirth(newDateOfBirth);
-
         assertEquals(newDateOfBirth, patient.getDateOfBirth());
     }
 
@@ -41,7 +40,6 @@ public class PatientInfoTest {
     @Test
     public void testSetGender() {
         patient.setGender(Gender.FEMALE);
-
         assertEquals(Gender.FEMALE, patient.getGender());
     }
 }

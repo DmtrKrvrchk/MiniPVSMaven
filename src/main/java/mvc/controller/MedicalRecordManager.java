@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class MedicalRecordManager {
-    public void createMedicalRecord(MedicalRecordModel medicalRecord) {
+    public static void createMedicalRecord(MedicalRecordModel medicalRecord) {
         EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
@@ -25,7 +25,7 @@ public class MedicalRecordManager {
         }
     }
 
-    public void updateMedicalRecord(MedicalRecordModel medicalRecord) {
+    public static void updateMedicalRecord(MedicalRecordModel medicalRecord) {
         EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
@@ -66,7 +66,7 @@ public class MedicalRecordManager {
     }
 
 
-    public List<MedicalRecordModel> getMedicalRecordsForPatient(PatientModel patient) {
+    public static List<MedicalRecordModel> getMedicalRecordsForPatient(PatientModel patient) {
         EntityManager em = CurrentSession.getInstance().getEntityManager();
         try {
             em.getTransaction().begin();
